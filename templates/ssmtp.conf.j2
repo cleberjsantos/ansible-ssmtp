@@ -1,0 +1,60 @@
+# {{ ansible_managed }}
+
+# Get enhanced (*really* enhanced) debugging information in the logs
+# If you want to have debugging of the config file parsing, move this option
+# to the top of the config file and uncomment
+# Debug=YES
+
+# The person who gets all mail for userids (UID < 1000, usually the admin)
+# Make this empty to disable rewriting.
+# root=postmaster
+# root=yourmail@mail.com
+root={{ ssmtp_root }}
+
+# The authorization method to use.  If unset, plain text is used.
+# May also be set to “cram-md5”.
+# PLAIN
+# LOGIN -> Using sSMTP with Gmail
+# CRAM-MD5
+AuthMethod={{ ssmtp_auth_method }}
+
+# Email 'From header's can override the default domain?
+# YES - Allow the user to specify their own From: address
+# NO - Use the system generated From: address
+FromLineOverride={{ ssmtp_from_override | ternary('yes', 'no') }}
+
+# Use SSL/TLS before starting negotiation
+UseTLS={{ ssmtp_tls | ternary('yes', 'no') }}
+UseSTARTTLS={{ ssmtp_start_tls | ternary('yes', 'no') }}
+
+# The full hostname
+hostname={{ ssmtp_hostname  | default(ansible_fqdn) }}
+
+# The place where the mail goes. The actual machine name is required no
+# MX records are consulted. Commonly mailhosts are named mail.domain.com
+# The mail server (where the mail is sent to), both port 465 or 587 should be acceptable
+# See also http://mail.google.com/support/bin/answer.py?answer=78799
+mailhub={{ ssmtp_server }}
+
+# The address where the mail appears to come from for user authentication.
+# rewriteDomain=gmail.com
+rewriteDomain={{ ssmtp_rewrite_domain }}
+
+# Username/Password
+AuthUser={{ ssmtp_auth_user }}
+AuthPass={{ ssmtp_auth_pass }}
+
+#### VERY IMPORTANT !!! If other people have access to this computer
+# Your GMAIL Password is left unencrypted in this file
+# so make sure you have a strong root password, and make sure
+# you change the permissions of this file to be 640:
+# chown root:mail /etc/ssmtp/ssmtp.conf
+# chmod 640 /etc/ssmtp/ssmtp.conf
+# 
+# add your user to the group mail
+# usermod -a -G mail <yourUserName>
+# quit all your sessions
+# login again
+# send a test mail:
+# user@yourmachine ~ $ ssmtp "testing ssmtp setup" yourMail@gmail.com
+

@@ -1,0 +1,8 @@
+---
+
+- hosts: localhost
+  remote_user: root
+  roles:
+  - { role: ansible-ssmtp, ssmtp_root: "username@gmail.com",
+      ssmtp_server: "smtp.gmail.com:587", ssmtp_rewrite_domain: "gmail.com", 
+      ssmtp_auth_user: "user@gmail.com", ssmtp_auth_pass: "password", tags: [mail,ssmtp,sendmail] }

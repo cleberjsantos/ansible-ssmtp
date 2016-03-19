@@ -1,0 +1,14 @@
+---
+
+ssmtp_root: postmaster
+ssmtp_auth_method: PLAIN 
+ssmtp_from_override: true
+ssmtp_start_tls: true 
+ssmtp_tls: true
+
+ssmtp_server: mail
+ssmtp_hostname:
+
+ssmtp_rewrite_domain:
+ssmtp_auth_user:
+ssmtp_auth_pass:

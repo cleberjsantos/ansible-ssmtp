@@ -1,0 +1,44 @@
+---
+
+language: python
+python: "2.7"
+sudo: required
+dist: trusty
+
+env:
+  - TEST_YML=test.yml
+
+before_install:
+  # Make sure everything's up to date.
+  - sudo apt-get update -qq
+
+  # Install dependencies
+  - sudo apt-get install -qq apt-transport-https python-docutils
+
+  # Install pip on the python
+  - sudo easy_install pip
+
+install:
+  # Install Ansible.
+  - sudo pip install ansible
+
+  # Add ansible.cfg to pick up roles path.
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+
+script:
+  # Check the role/playbook's syntax.
+  - "ansible-playbook -i tests/inventory tests/$TEST_YML --syntax-check"
+
+  # Run the role/playbook with ansible-playbook.
+  - "ansible-playbook -i tests/inventory tests/$TEST_YML --connection=local --sudo -vvv"
+
+  # Travis CI's environment requires one _extra_ run for true idempotence :-/.
+  - "ansible-playbook -i tests/inventory tests/$TEST_YML --connection=local --sudo -vvv"
+
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  - >
+    ansible-playbook -i tests/inventory tests/$TEST_YML --connection=local --sudo
+    | grep -q '.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+
