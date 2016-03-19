@@ -1,6 +1,11 @@
 Ansible SSMTP Role
 ==================
 
+[![Build Status](https://travis-ci.org/cleberjsantos/ansible-ssmtp.svg?branch=master)](https://travis-ci.org/cleberjsantos/ansible-ssmtp)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-cleberjsantos.ssmtp-blue.svg)](https://galaxy.ansible.com/cleberjsantos/ansible-ssmtp/)
+[![Tag](https://img.shields.io/github/tag/cleberjsantos/ansible-ssmtp.svg)]()
+[![Travis CI](https://img.shields.io/travis/cleberjsantos/ansible-ssmtp/master.svg)](http://travis-ci.org/cleberjsantos/ansible-ssmtp)
+
 Installs and configures `ssmtp`.
 
 * installs ssmtp
