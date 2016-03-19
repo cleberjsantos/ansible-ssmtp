@@ -103,7 +103,7 @@ Example playbook using Gmail
 or
 
 ```
-- hosts: all 
+- hosts: all
   roles:
   - { role: ansible-ssmtp, ssmtp_root: "username@gmail.com",
       ssmtp_server: "smtp.gmail.com:587", ssmtp_rewrite_domain: "gmail.com", 
@@ -125,7 +125,7 @@ Example playbook using Mandrill
     ssmtp_auth_pass: mandrill_api_key
   tags:
     - mail
-    - mandril
+    - mandrill
     - ssmtp
     - sendmail
 ```
@@ -133,11 +133,11 @@ Example playbook using Mandrill
 or
 
 ```
-- hosts: all 
+- hosts: all
   roles:
   - { role: ansible-ssmtp, ssmtp_root: "admin_email@example.com",
       ssmtp_server: "smtp.mandrillapp.com:587", ssmtp_auth_method: "LOGIN", 
-      ssmtp_auth_user: "your_mandrill_email@example.com", ssmtp_auth_pass: "mandrill_api_key", tags: [mail,mandril,ssmtp,sendmail] }
+      ssmtp_auth_user: "your_mandrill_email@example.com", ssmtp_auth_pass: "mandrill_api_key", tags: [mail,mandrill,ssmtp,sendmail] }
 ```
 
 License
